@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3332a6a517ce3c54496dbf7fa92db632
+guid: fc1515b071e1912438345206f4fcdf4a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,169 +106,211 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: octopus_0
+      name: crab_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 103
-        width: 18
-        height: 18
+        x: 0
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57ea1730dd08e854fa094f94d5417a14
-      internalID: -1960278486
+      spriteID: d533450499ddec4459dbd6fd9919645a
+      internalID: 1509675560
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: octopus_1
+      name: crab_1
       rect:
         serializedVersion: 2
-        x: 39
-        y: 103
-        width: 18
-        height: 18
+        x: 32
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 837c9a05aa13dc44ebea1424d57e68b7
-      internalID: 2121080505
+      spriteID: 42cfdfe4bdc21cf449583a5f24443e20
+      internalID: -1471740887
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: octopus_2
+      name: crab_2
       rect:
         serializedVersion: 2
-        x: 7
-        y: 71
-        width: 18
-        height: 18
+        x: 0
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a6b0e25b5a0d8744a633a32d63d1e4d
-      internalID: 425442202
+      spriteID: 70ed937f9e207f844a91148b2b90be48
+      internalID: 792843492
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: octopus_3
+      name: crab_3
       rect:
         serializedVersion: 2
-        x: 39
-        y: 71
-        width: 18
-        height: 18
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d68a07cecdacdd459900788f2848dca
-      internalID: -1758669778
+      spriteID: ba6d16f7d6b0a6242a8528a2c71d3275
+      internalID: -1711954972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: octopus_4
+      name: crab_4
       rect:
         serializedVersion: 2
-        x: 7
-        y: 39
-        width: 18
-        height: 18
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11f91bd4df3005748aa9740c091c6aef
-      internalID: -456403080
+      spriteID: e05910252af563343b04e753ce981d3a
+      internalID: 2053981735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: octopus_5
+      name: crab_5
       rect:
         serializedVersion: 2
-        x: 39
-        y: 39
-        width: 18
-        height: 18
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bffdea0690032b74586b637dacc1739f
-      internalID: -954517323
+      spriteID: b33bfa505cb06df4c8d610683792b279
+      internalID: -392382315
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: octopus_6
+      name: crab_6
       rect:
         serializedVersion: 2
-        x: 7
-        y: 7
-        width: 18
-        height: 18
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4388f64d0a50bb44a16f01baab8f71d
-      internalID: 449162586
+      spriteID: 2d3f81ebf1e7f9849bed6a91f415d479
+      internalID: -1350747865
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: octopus_7
+      name: crab_7
       rect:
         serializedVersion: 2
-        x: 39
-        y: 7
-        width: 18
-        height: 18
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd925b197b28a0f478c9e71d2eb393eb
-      internalID: 1609552417
+      spriteID: 5bb7edb9f1ff22b4d9efb524d306e350
+      internalID: -26770574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crab_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38818e2e979bcff4a955a869effd6378
+      internalID: -291228846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crab_9
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26a4a0f4bdf77a145be1bc670e7d896d
+      internalID: 413157720
       vertices: []
       indices: 
       edges: []
@@ -284,14 +326,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      octopus_4: -456403080
-      octopus_1: 2121080505
-      octopus_7: 1609552417
-      octopus_3: -1758669778
-      octopus_6: 449162586
-      octopus_2: 425442202
-      octopus_0: -1960278486
-      octopus_5: -954517323
+      crab_7: -26770574
+      crab_0: 1509675560
+      crab_8: -291228846
+      crab_2: 792843492
+      crab_6: -1350747865
+      crab_9: 413157720
+      crab_4: 2053981735
+      crab_5: -392382315
+      crab_1: -1471740887
+      crab_3: -1711954972
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

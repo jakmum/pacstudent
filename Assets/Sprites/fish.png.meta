@@ -71,7 +71,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -109,19 +109,19 @@ TextureImporter:
       name: fish_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 104
-        width: 20
-        height: 15
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8de01cef2ff87b498c5f41be3372bb8
-      internalID: 1997920805
+      spriteID: c953f34595e62db4fb7319daa2b41dd0
+      internalID: -259246180
       vertices: []
       indices: 
       edges: []
@@ -130,19 +130,19 @@ TextureImporter:
       name: fish_1
       rect:
         serializedVersion: 2
-        x: 38
-        y: 104
-        width: 20
-        height: 15
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7856ddd22b11c414fba37ff72e336820
-      internalID: 262119168
+      spriteID: d77b5ab8accc1a14ca42356f8938dfa1
+      internalID: 2090171143
       vertices: []
       indices: 
       edges: []
@@ -151,19 +151,19 @@ TextureImporter:
       name: fish_2
       rect:
         serializedVersion: 2
-        x: 70
-        y: 104
-        width: 20
-        height: 15
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74ff72dbad49ad74188e868797541ba7
-      internalID: 1963353381
+      spriteID: 80a23a9b74d642844a3e0e29611a86dd
+      internalID: -1814533363
       vertices: []
       indices: 
       edges: []
@@ -172,271 +172,19 @@ TextureImporter:
       name: fish_3
       rect:
         serializedVersion: 2
-        x: 102
-        y: 104
-        width: 20
-        height: 15
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: caa044d49ca450043af6c2a5bf3c5701
-      internalID: 1845346897
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_4
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 72
-        width: 20
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c817f306714792c49b3abdc709d6a3e1
-      internalID: -2077700178
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_5
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 72
-        width: 20
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8992c8bc2a1bfd34e969b0ec099e0b86
-      internalID: 2006858444
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_6
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 72
-        width: 20
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0cc07c9e2a5aba648b4001051afb69d0
-      internalID: -2116680965
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_7
-      rect:
-        serializedVersion: 2
-        x: 102
-        y: 72
-        width: 20
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1120a9779d69bcc4780bc9dc0a1f9c49
-      internalID: -328631113
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_8
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 38
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 900b2ca67a45eb34885c1fd9c5a01481
-      internalID: 1681691238
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_9
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 38
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2127fc83f526e1147b4eb0cc784e627f
-      internalID: -1180905271
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_10
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 38
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b8dde86cb4637ee47b3a38ab724e33d9
-      internalID: -274175552
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_11
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 38
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a7e66196e3b61b146a73c9ca044277c2
-      internalID: -1865009486
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_12
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 6
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb6c9c57f3762fc4e98ededb80126b83
-      internalID: 1092933582
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_13
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 6
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2f295e964e3d678448a4aef51402bba0
-      internalID: -15067029
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_14
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 6
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 135495dd858a038498c353d83c53f5ca
-      internalID: 2103718283
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_15
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 6
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 59f19e0453a8d1e42872f4a4bc75243d
-      internalID: -1743908203
+      spriteID: 1969c9445c5170045b5f5b0a55f21bdb
+      internalID: 1439688956
       vertices: []
       indices: 
       edges: []
@@ -452,22 +200,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      fish_7: -328631113
-      fish_13: -15067029
-      fish_3: 1845346897
-      fish_5: 2006858444
-      fish_14: 2103718283
-      fish_1: 262119168
-      fish_9: -1180905271
-      fish_11: -1865009486
-      fish_15: -1743908203
-      fish_2: 1963353381
-      fish_10: -274175552
-      fish_6: -2116680965
-      fish_12: 1092933582
-      fish_8: 1681691238
-      fish_4: -2077700178
-      fish_0: 1997920805
+      fish_3: 1439688956
+      fish_1: 2090171143
+      fish_2: -1814533363
+      fish_0: -259246180
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 
