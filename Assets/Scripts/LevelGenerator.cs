@@ -56,8 +56,8 @@ public class LevelGenerator : MonoBehaviour
                 GameObject newTile = CreateTile(tileNumber, j, i);
                 newTile.transform.SetParent(tilesTopLeft.transform);
 
-                float rotation = DecideRotation(tileNumber, j, i);
-                newTile.transform.Rotate(new Vector3(0.0f, 0.0f, rotation));
+                Vector3 rotation = DecideRotation(tileNumber, j, i);
+                newTile.transform.Rotate(rotation);
 
                 CreateCopies(tileNumber, j, i, rotation);
             }
@@ -90,10 +90,10 @@ public class LevelGenerator : MonoBehaviour
         return newTile;
     }
 
-    float DecideRotation(int tileNumber, int x, int y) {
+    Vector3 DecideRotation(int tileNumber, int x, int y) {
         //start tile always in standard rotation
         if (x == 0 && y == 0)
-            return 0.0f;
+            return new Vector3(0.0f, 0.0f, 0.0f);
 
         //0:left; 1:top; 2:right; 3:bottom
         int[] neighbors = GetNeighbors(x, y);
@@ -101,95 +101,195 @@ public class LevelGenerator : MonoBehaviour
         switch (tileNumber) {
             //outside corner
             case 1:
-                //must have two outside walls adjacent
-                if (neighbors[0] == 2) {
-                    if (neighbors[3] == 2) {
-                        return 270.0f;
+                //must have outside corner, outside wall or t junction adjacent
+                if (   neighbors[0] == 1
+                    || neighbors[0] == 2
+                    || neighbors[0] == 7) 
+                {
+                    if (   neighbors[3] == 1
+                        || neighbors[3] == 2
+                        || neighbors[3] == 7)
+                    {
+                        return new Vector3(0.0f, 0.0f, 270.0f);
                     } else {
-                        return 180.0f;
+                        return new Vector3(0.0f, 0.0f, 180.0f);
                     }
                 } else {
-                    if (neighbors[1] == 2) {
-                        return 90.0f;
+                    if (   neighbors[3] == 1
+                        || neighbors[3] == 2
+                        || neighbors[3] == 7)
+                    {
+                        return new Vector3(0.0f, 0.0f, 0.0f);
                     } else {
-                        return 0.0f;
+                        return new Vector3(0.0f, 0.0f, 90.0f);
                     }
                 }
             //outside wall
             case 2:
                 //must have outside corner, outside wall or t junction adjacent
-                if (   neighbors[0] == 1
+                if ((  neighbors[0] == 1
                     || neighbors[0] == 2
                     || neighbors[0] == 7)
-                    
+                    &&
+                    (  neighbors[2] == 1
+                    || neighbors[2] == 2
+                    || neighbors[2] == 7))
                 {
-                    if (   neighbors[2] == 1
-                        || neighbors[2] == 2
-                        || neighbors[2] == 7)
-                    {
-                        return 90.0f;
-                    }
-                } else if (    neighbors[1] == 1
+                    return new Vector3(0.0f, 0.0f, 90.0f);
+                } else if ((   neighbors[1] == 1
                             || neighbors[1] == 2
                             || neighbors[1] == 7
                             || neighbors[1] == -1)
-                {
-                    if(    neighbors[3] == 1
+                        &&
+                        (  neighbors[3] == 1
                         || neighbors[3] == 2
                         || neighbors[3] == 7
-                        || neighbors[3] == -1)
-                    {
-                        return 0.0f;
-                    }
+                        || neighbors[3] == -1))
+                {
+                    return new Vector3(0.0f, 0.0f, 0.0f);
+                } else {
+                    return new Vector3(0.0f, 0.0f, 90.0f);
                 }
-                return 90.0f;
             //inside corner
             case 3:
-                //inside coner or inside wall or t junction
-                if (neighbors[0] == 3 || neighbors[0] == 4 || neighbors[0] == 7) {
-                    if (neighbors[3] == 3 || neighbors[3] == 4 || neighbors[3] == 7) {
-                        return 270.0f;
+                //must have inside corner, inside wall or t junction adjacent
+                if (   neighbors[0] == 3
+                    || neighbors[0] == 4
+                    || neighbors[0] == 7) 
+                {
+                    if (   neighbors[3] == 3
+                        || neighbors[3] == 4
+                        || neighbors[3] == 7) 
+                    {
+                        return new Vector3(0.0f, 0.0f, 270.0f);
                     } else {
-                        return 180.0f;
+                        return new Vector3(0.0f, 0.0f, 180.0f);
                     }
                 } else {
-                    if (neighbors[3] == 3 || neighbors[3] == 4 || neighbors[3] == 7) {
-                        return 0.0f;
+                    if (   neighbors[3] == 3
+                        || neighbors[3] == 4
+                        || neighbors[3] == 7) 
+                    {
+                        return new Vector3(0.0f, 0.0f, 0.0f);
                     } else {
-                        return 90.0f;
+                        return new Vector3(0.0f, 0.0f, 90.0f);
                     }
                 }
             //inside wall
             case 4:
-                if ((      neighbors[0] == 3
-                        || neighbors[0] == 4
-                        || neighbors[0] == 7
-                        || neighbors[0] == -1
-                    ) && ( neighbors[2] == 3
-                        || neighbors[2] == 4
-                        || neighbors[2] == 7
-                        || neighbors[2] == -1
-                        || neighbors[2] == 0))
+                float rand = Random.Range(0.0f,1.0f);
+                //must have inside corner, inside wall or t junction adjacent
+                if ((  neighbors[0] == 3
+                    || neighbors[0] == 4
+                    || neighbors[0] == 7)
+                    && 
+                    (  neighbors[2] == 3
+                    || neighbors[2] == 4
+                    || neighbors[2] == 7))
                 {
                     //rotate up/down randomly for more diverse looking layout
-                    float rand = Random.Range(0,1);
-                    if(rand > 0.5)
-                        return 90.0f;
-                    return 270.0f;
-                } else {
-                    //rotate right/left randomly for more diverse looking layout
-                    float rand = Random.Range(0,1);
-                    if(rand > 0.5)
-                        return 0.0f;
-                    return 180.0f;
+                    if(rand > 0.5f)
+                        return new Vector3(0.0f, 0.0f, 90.0f);
+                    return new Vector3(0.0f, 0.0f, 270.0f);
+                } else if (((  neighbors[1] == 3
+                            || neighbors[1] == 4
+                            || neighbors[1] == 7)
+                            &&
+                        (  neighbors[3] == 3
+                        || neighbors[3] == 4
+                        || neighbors[3] == 7
+                        || neighbors[3] == 0
+                        || neighbors[3] == -1))
+                        ||
+                        (( neighbors[1] == 3
+                        || neighbors[1] == 4
+                        || neighbors[1] == 7
+                        || neighbors[3] == 0
+                        || neighbors[3] == -1)
+                        &&
+                        (  neighbors[3] == 3
+                        || neighbors[3] == 4
+                        || neighbors[3] == 7)))
+                {
+                    //rotate left/right randomly for more diverse looking layout
+                    if(rand > 0.5f)
+                        return new Vector3(0.0f, 0.0f, 0.0f);
+                    return new Vector3(0.0f, 0.0f, 180.0f);
+                } else 
+                {
+                    //rotate up/down randomly for more diverse looking layout
+                    if(rand > 0.5f)
+                        return new Vector3(0.0f, 0.0f, 90.0f);
+                    return new Vector3(0.0f, 0.0f, 270.0f);
                 }
             //t junction
+            case 7:
+                if ((  neighbors[0] == 1
+                    || neighbors[0] == 2
+                    || neighbors[0] == 7)
+                    &&
+                    (  neighbors[2] == 1
+                    || neighbors[2] == 2
+                    || neighbors[2] == 7))
+                {
+                    if (   neighbors[1] == 3
+                        || neighbors[1] == 4
+                        || neighbors[1] == 7)
+                    {
+                        if (tOpen) {
+                            tOpen = false;
+                            return new Vector3(0.0f, 0.0f, 180.0f);
+                        } else {
+                            tOpen = true;
+                            return new Vector3(180.0f, 0.0f, 0.0f);
+                        }
+                    } else {
+                        if (tOpen) {
+                            tOpen = false;
+                            return new Vector3(0.0f, 180.0f, 0.0f);
+                        } else {
+                            tOpen = true;
+                            return new Vector3(0.0f, 0.0f, 0.0f);
+                        }
+                    }
+                } else if ((   neighbors[1] == 1
+                            || neighbors[1] == 2
+                            || neighbors[1] == 7)
+                            &&
+                            (  neighbors[3] == 1
+                            || neighbors[3] == 2
+                            || neighbors[3] == 7))
+                {
+                    if (   neighbors[0] == 3
+                        || neighbors[0] == 4
+                        || neighbors[0] == 7)
+                    {
+                        if (tOpen) {
+                            tOpen = false;
+                            return new Vector3(180.0f, 0.0f, 270.0f);
+                        } else {
+                            tOpen = true;
+                            return new Vector3(0.0f, 0.0f, 270.0f);
+                        }
+                    } else {
+                        if (tOpen) {
+                            tOpen = false;
+                            return new Vector3(0.0f, 0.0f, 90.0f);
+                        } else {
+                            tOpen = true;
+                            return new Vector3(180.0f, 0.0f, 90.0f);
+                        }
+                    }
+                } else {
+                    return new Vector3(0.0f, 0.0f, 0.0f);
+                }
+            //no rotation needed for pellets
             default:
-                return 0.0f;
-        }
+                return new Vector3(0.0f, 0.0f, 0.0f);
+        }    
     }
 
-    void CreateCopies(int tileNumber, int x, int y, float rotation) {
+    void CreateCopies(int tileNumber, int x, int y, Vector3 rotation) {
         int width = levelMap.GetLength(1) * 2 - 1;
         int height = levelMap.GetLength(0) * 2 - 1;
 
@@ -197,21 +297,21 @@ public class LevelGenerator : MonoBehaviour
         GameObject topRight = CreateTile(tileNumber, width-x, y);
         topRight.transform.SetParent(tilesTopRight.transform);
 
-        topRight.transform.Rotate(new Vector3(0.0f, 180.0f, rotation));
+        topRight.transform.Rotate(new Vector3(rotation.x, rotation.y + 180.0f, rotation.z));
 
         if (y < height/2) {
             //Bottom Left
             GameObject bottomLeft = CreateTile(tileNumber, x, height-y-1);
             bottomLeft.transform.SetParent(tilesBottomLeft.transform);
 
-            bottomLeft.transform.Rotate(new Vector3(180.0f, 0.0f, rotation));
+            bottomLeft.transform.Rotate(new Vector3(rotation.x + 180.0f, rotation.y, rotation.z));
             
             //Bottom Right
             GameObject bottomRight = CreateTile(tileNumber, width-x, height-y-1);
             bottomRight.transform.SetParent(tilesBottomRight.transform);
 
-            bottomRight.transform.Rotate(new Vector3(180.0f, 180.0f, rotation));
-        }   
+            bottomRight.transform.Rotate(new Vector3(rotation.x + 180.0f, rotation.y + 180.0f, rotation.z));
+        }
     }
 
     int[] GetNeighbors (int x, int y) {
