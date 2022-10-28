@@ -16491,6 +16491,7 @@ GameObject:
   - component: {fileID: 411990436}
   - component: {fileID: 411990435}
   - component: {fileID: 411990437}
+  - component: {fileID: 411990438}
   m_Layer: 0
   m_Name: MovementController
   m_TagString: MovementManager
@@ -16537,6 +16538,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f69e7991cecad341a77078d9343ef36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &411990438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411990434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9739ed745f004d541afffa906efe99c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cherryPrefab: {fileID: 8111287719560363366, guid: f0d1af4b69f7d2346ab3acc62dbbbdb1, type: 3}
 --- !u!1 &413281795
 GameObject:
   m_ObjectHideFlags: 0
@@ -19543,7 +19557,7 @@ Camera:
   m_HDR: 0
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
