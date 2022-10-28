@@ -4,45 +4,45 @@ using UnityEngine;
 
 public class MovementManager : MonoBehaviour
 {
-    [SerializeField]
-    public GameObject fish;
-    private Tweener tweener;
-    private Animator fishAnimator;
-    private Vector3[] fishPositions = {
-        new Vector3(1.0f, -1.0f, 0.0f),
-        new Vector3(6.0f, -1.0f, 0.0f),
-        new Vector3(6.0f, -5.0f, 0.0f),
-        new Vector3(1.0f, -5.0f, 0.0f)
-    };
-    private string[] fishStates = {
-        "FishRight",
-        "FishDown",
-        "FishLeft",
-        "FishUp"
-    };
-    private int speed = 2;
+    private PacStudentController pacStudentController;
+    private LevelGenerator levGen;
 
     // Start is called before the first frame update
     void Start()
     {
-        tweener = GetComponent<Tweener>();
-        fishAnimator = fish.GetComponent<Animator>();
-
-        //Reset fish to start position
-        fish.transform.position = fishPositions[0];
+        levGen = GameObject.FindGameObjectWithTag("tiles").GetComponent<LevelGenerator>();
+        pacStudentController = GameObject.FindGameObjectWithTag("PacStudent").GetComponent<PacStudentController>();
     }
-
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < fishPositions.Length; i++) {
-            if(fish.transform.position == fishPositions[i]) {
-                float duration = Vector3.Distance(fishPositions[i], fishPositions[(i+1)%4]) / speed;
-                tweener.AddTween(fish.transform, fishPositions[i], fishPositions[(i+1)%4], duration);
-                fishAnimator.Play(fishStates[i]);
-            }
-        }
+        // for (int i = 0; i < fishPositions.Length; i++) {
+        //     if(fish.transform.position == fishPositions[i]) {
+        //         float duration = Vector3.Distance(fishPositions[i], fishPositions[(i+1)%4]) / speed;
+        //         tweener.AddTween(fish.transform, fishPositions[i], fishPositions[(i+1)%4], duration);
+        //         fishAnimator.Play(fishStates[i]);
+        //     }
+        // }
+    }
+
+    public int GetNextTile(Vector3 position, Vector3 direction) {
+        //0:left; 1:top; 2:right; 3:bottom
+        int[] neighbors = levGen.GetNeighbors((int)position.x, -(int)position.y);
+        if(direction.x == -1)
+            return neighbors[0];
+        else if(direction.x == 1)
+            return neighbors[2];
+        else if(direction.y == -1)
+            return neighbors[3];
+        else
+            return neighbors[1];
+    }
+
+    public bool isWalkable(int tileNumber) {
+        if(tileNumber == 0 || tileNumber == 5 || tileNumber == 6)
+            return true;
+        return false;
     }
 
 }

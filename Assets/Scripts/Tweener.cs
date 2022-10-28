@@ -43,4 +43,8 @@ public class Tweener : MonoBehaviour
         }
         return false;
     }
+
+    public bool isTweening () {
+        return activeTweens.Count > 0;
+    }
 }

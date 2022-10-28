@@ -22,6 +22,7 @@ public class LevelGenerator : MonoBehaviour
         {2,2,2,2,2,1,5,3,3,0,4,0,0,0},
         {0,0,0,0,0,0,5,0,0,0,4,0,0,0},
     };
+    int[,] completeLvlMap;
     private GameObject tilesTopLeft;
     private GameObject tilesTopRight;
     private GameObject tilesBottomLeft;
@@ -38,6 +39,7 @@ public class LevelGenerator : MonoBehaviour
         tilesBottomLeft = gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
         tilesBottomRight = gameObject.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject;
 
+        CompleteLvlMap();
         DeleteLevel();
         BuildLevel();
     }
@@ -46,6 +48,21 @@ public class LevelGenerator : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void CompleteLvlMap() {
+        completeLvlMap = new int[levelMap.GetLength(0)*2-1,levelMap.GetLength(1)*2];
+        for (int i = 0; i < completeLvlMap.GetLength(0); i++) {
+            for (int j = 0; j < completeLvlMap.GetLength(1); j++) {
+                int x = i;
+                int y = j;
+                if(i >= levelMap.GetLength(0))
+                    x = 2*levelMap.GetLength(0)-i-2;
+                if(j >= levelMap.GetLength(1))
+                    y = 2*levelMap.GetLength(1)-j-1;
+                completeLvlMap[i,j] = levelMap[x,y];
+            }
+        }
     }
 
     void BuildLevel() {
@@ -314,30 +331,30 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    int[] GetNeighbors (int x, int y) {
+    public int[] GetNeighbors (int x, int y) {
         //0:left; 1:top; 2:right; 3:bottom
         int[] neighbors = new int[4];
 
         if(x > 0) {
-            neighbors[0] = levelMap[y,x-1];
+            neighbors[0] = completeLvlMap[y,x-1];
         } else {
             neighbors[0] = -1;
         }
 
         if(y > 0) {
-            neighbors[1] = levelMap[y-1,x];
+            neighbors[1] = completeLvlMap[y-1,x];
         } else {
             neighbors[1] = -1;
         }
 
-        if(x < levelMap.GetLength(1)-1) {
-            neighbors[2] = levelMap[y,x+1];
+        if(x < completeLvlMap.GetLength(1)-1) {
+            neighbors[2] = completeLvlMap[y,x+1];
         } else {
             neighbors[2] = -1;
         }
 
-        if(y < levelMap.GetLength(0)-1) {
-            neighbors[3] = levelMap[y+1,x];
+        if(y < completeLvlMap.GetLength(0)-1) {
+            neighbors[3] = completeLvlMap[y+1,x];
         } else {
             neighbors[3] = -1;
         }
