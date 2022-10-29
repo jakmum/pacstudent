@@ -32,9 +32,11 @@ public class PacStudentController : MonoBehaviour
     };
     private Animator fishAnimator;
     // Start is called before the first frame update
+    public void Initialize(MovementManager mm) {
+        movementManager = mm;
+    }
     void Start()
     {
-        movementManager = GameObject.FindGameObjectWithTag("MovementManager").GetComponent<MovementManager>();
         tweener = GetComponent<Tweener>();
         fishAnimator = GetComponent<Animator>();
         trailParticles = GameObject.Find("TrailParticles").GetComponent<ParticleSystem>();

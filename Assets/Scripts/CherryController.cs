@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class CherryController : MonoBehaviour
 {
+    private MovementManager movementManager;
     public GameObject cherryPrefab;
     Tweener tweener;
     float delay = 10.0f;
     // Start is called before the first frame update
+    public void Initialize(MovementManager mm) {
+        movementManager = mm;
+    }
     void Start()
     {
         tweener = GetComponent<Tweener>();

@@ -4,31 +4,32 @@ using UnityEngine;
 
 public class MovementManager : MonoBehaviour
 {
+    GameManager gameManager;
+    [SerializeField]
     private PacStudentController pacStudentController;
-    private LevelGenerator levGen;
+    [SerializeField]
+    private CherryController cherryController;
 
     // Start is called before the first frame update
+    public void Initialize(GameManager gm) {
+        gameManager = gm;
+        pacStudentController.Initialize(this);
+        cherryController.Initialize(this);
+    }
     void Start()
     {
-        levGen = GameObject.FindGameObjectWithTag("tiles").GetComponent<LevelGenerator>();
         pacStudentController = GameObject.FindGameObjectWithTag("PacStudent").GetComponent<PacStudentController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // for (int i = 0; i < fishPositions.Length; i++) {
-        //     if(fish.transform.position == fishPositions[i]) {
-        //         float duration = Vector3.Distance(fishPositions[i], fishPositions[(i+1)%4]) / speed;
-        //         tweener.AddTween(fish.transform, fishPositions[i], fishPositions[(i+1)%4], duration);
-        //         fishAnimator.Play(fishStates[i]);
-        //     }
-        // }
+
     }
 
     public int GetNextTile(Vector3 position, Vector3 direction) {
         //0:left; 1:top; 2:right; 3:bottom
-        int[] neighbors = levGen.GetNeighbors((int)position.x, -(int)position.y);
+        int[] neighbors = gameManager.levelGenerator.GetNeighbors((int)position.x, -(int)position.y);
         if(direction.x == -1)
             return neighbors[0];
         else if(direction.x == 1)

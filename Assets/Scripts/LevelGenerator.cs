@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    GameManager gameManager;
     int[,] levelMap =
     {
         {1,2,2,2,2,2,2,2,2,2,2,2,2,7},
@@ -32,6 +33,9 @@ public class LevelGenerator : MonoBehaviour
     private bool tOpen = false;
 
     // Start is called before the first frame update
+    public void Initialize(GameManager gm) {
+        gameManager = gm;
+    }
     void Start()
     {
         tilesTopLeft = gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
