@@ -10,11 +10,15 @@ public class GameManager : MonoBehaviour
     public AudioManager audioManager;
     [SerializeField]
     public LevelGenerator levelGenerator;
+    [SerializeField]
+    public UIManager uIManager;
+    private int score = 0;
     // Start is called before the first frame update
     void Awake() {
         movementManager.Initialize(this);
         audioManager.Initialize(this);
         levelGenerator.Initialize(this);
+        
     }
     void Start()
     {
@@ -25,5 +29,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AddScore(int x) {
+        score += x;
     }
 }

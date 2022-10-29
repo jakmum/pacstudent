@@ -4873,7 +4873,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -16620,6 +16620,7 @@ GameObject:
   - component: {fileID: 411990435}
   - component: {fileID: 411990437}
   - component: {fileID: 411990438}
+  - component: {fileID: 411990439}
   m_Layer: 0
   m_Name: MovementController
   m_TagString: MovementManager
@@ -16666,8 +16667,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f69e7991cecad341a77078d9343ef36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   pacStudentController: {fileID: 535238084}
   cherryController: {fileID: 411990438}
+  ghostController: {fileID: 411990439}
 --- !u!114 &411990438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16681,6 +16684,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cherryPrefab: {fileID: 8111287719560363366, guid: f0d1af4b69f7d2346ab3acc62dbbbdb1, type: 3}
+--- !u!114 &411990439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411990434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49053590d6ac9f349a4f049f41300a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghosts:
+  - {fileID: 1507789171}
+  - {fileID: 1696884068}
+  - {fileID: 286871744}
+  - {fileID: 1560859673}
 --- !u!1 &413281795
 GameObject:
   m_ObjectHideFlags: 0
@@ -19992,6 +20012,8 @@ GameObject:
   - component: {fileID: 535238083}
   - component: {fileID: 535238084}
   - component: {fileID: 535238085}
+  - component: {fileID: 535238086}
+  - component: {fileID: 535238087}
   m_Layer: 0
   m_Name: Fish
   m_TagString: PacStudent
@@ -20208,6 +20230,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4007ca60607db614492aa5bcf0a4fb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &535238086
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535238079}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &535238087
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535238079}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &536201783
 GameObject:
   m_ObjectHideFlags: 0
@@ -27189,7 +27258,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -32525,6 +32594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19e30eb19726c14383ca6be63ca08fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  width: 0
+  height: 0
   sprites:
   - {fileID: -1595670018, guid: 1a864ce30e7a682439691c57a822aa4f, type: 3}
   - {fileID: -1462354340, guid: 1a864ce30e7a682439691c57a822aa4f, type: 3}
@@ -38080,6 +38151,7 @@ MonoBehaviour:
   movementManager: {fileID: 411990437}
   audioManager: {fileID: 1766501193}
   levelGenerator: {fileID: 1000534188}
+  uIManager: {fileID: 1792397774}
 --- !u!4 &1230565015
 Transform:
   m_ObjectHideFlags: 0
@@ -54704,6 +54776,7 @@ GameObject:
   - component: {fileID: 1792397772}
   - component: {fileID: 1792397771}
   - component: {fileID: 1792397770}
+  - component: {fileID: 1792397774}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -54797,6 +54870,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1792397774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792397769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed4c384c8afe852489a4debe89f93a1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: {fileID: 22910391}
+  lifeIndicator: {fileID: 753232891}
+  timer: {fileID: 1116088321}
+  ghostTimer: {fileID: 1267417350}
 --- !u!1 &1792761381
 GameObject:
   m_ObjectHideFlags: 0

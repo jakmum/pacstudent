@@ -24,6 +24,8 @@ public class LevelGenerator : MonoBehaviour
         {0,0,0,0,0,0,5,0,0,0,4,0,0,0},
     };
     int[,] completeLvlMap;
+    public int width;
+    public int height;
     private GameObject tilesTopLeft;
     private GameObject tilesTopRight;
     private GameObject tilesBottomLeft;
@@ -44,6 +46,8 @@ public class LevelGenerator : MonoBehaviour
         tilesBottomRight = gameObject.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject;
 
         CompleteLvlMap();
+        width = completeLvlMap.GetLength(1);
+        height = completeLvlMap.GetLength(0);
         DeleteLevel();
         BuildLevel();
     }
@@ -100,11 +104,23 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    GameObject CreateTile(int tileNumber, int x, int y) {
+    public GameObject CreateTile(int tileNumber, int x, int y) {
         GameObject newTile = new GameObject("tile"+x+y);
         SpriteRenderer renderer = newTile.AddComponent<SpriteRenderer>();
-        if (tileNumber > 0) {
+        if(tileNumber > 0) 
             renderer.sprite = sprites[tileNumber-1];
+        
+        if(tileNumber == 5) {
+            CircleCollider2D cl = newTile.AddComponent<CircleCollider2D>();
+            cl.isTrigger = true;
+            cl.radius = 0.2f;
+            newTile.tag = "Pellet";
+        }
+        if(tileNumber == 6) {
+            CircleCollider2D cl = newTile.AddComponent<CircleCollider2D>();
+            cl.isTrigger = true;
+            cl.radius = 0.4f;
+            newTile.tag = "PowerPellet";
         }
         newTile.transform.position = new Vector3((float) x, (float) -y, 0.0f);
 

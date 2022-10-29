@@ -27,8 +27,11 @@ public class CherryController : MonoBehaviour
     IEnumerator SpawnCherry() {
         Vector3 randomLocation = new Vector3(Random.Range(0.0f,27.0f), 1.0f, 0.0f);
         GameObject newCherry = Instantiate(cherryPrefab, randomLocation, Quaternion.identity);
+        newCherry.tag = "Cherry";
+        CircleCollider2D cl = newCherry.AddComponent<CircleCollider2D>();
+        cl.isTrigger = true;
         MoveCherry(newCherry);
-        yield return new WaitUntil(() => !tweener.TweenExists(newCherry.transform));
+        yield return new WaitUntil(() => newCherry == null || !tweener.TweenExists(newCherry.transform));
         Destroy(newCherry);
     }
 
@@ -41,5 +44,9 @@ public class CherryController : MonoBehaviour
             cherry.transform.position, 
             new Vector3(27.0f - cherry.transform.position.x, -30.0f, 0.0f),
             10.0f);
+    }
+
+    public bool RemoveCherry(Transform cherry) {
+        return tweener.RemoveTween(cherry);
     }
 }

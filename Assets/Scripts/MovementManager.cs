@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class MovementManager : MonoBehaviour
 {
-    GameManager gameManager;
+    public GameManager gameManager;
     [SerializeField]
     private PacStudentController pacStudentController;
     [SerializeField]
-    private CherryController cherryController;
+    public CherryController cherryController;
+    [SerializeField]
+    public GhostController ghostController;
 
     // Start is called before the first frame update
     public void Initialize(GameManager gm) {
         gameManager = gm;
         pacStudentController.Initialize(this);
         cherryController.Initialize(this);
+        ghostController.Initialize(this);
     }
+
     void Start()
     {
         pacStudentController = GameObject.FindGameObjectWithTag("PacStudent").GetComponent<PacStudentController>();
@@ -41,7 +45,7 @@ public class MovementManager : MonoBehaviour
     }
 
     public bool isWalkable(int tileNumber) {
-        if(tileNumber == 0 || tileNumber == 5 || tileNumber == 6)
+        if(tileNumber == 0 || tileNumber == 5 || tileNumber == 6 || tileNumber == -1)
             return true;
         return false;
     }

@@ -63,22 +63,15 @@ public class PacStudentController : MonoBehaviour
     }
 
     void Move() {
-        if(!tweener.isTweening() && lastInput != -1) {
+        if(!tweener.TweenExists(transform) && lastInput != -1) {            
             Vector3 direction = directions[lastInput];
             int nextTile = movementManager.GetNextTile(transform.position, direction);
-            
-            if(movementManager.isWalkable(nextTile)) {
-                currentInput = lastInput;
-                tweener.AddTween(transform, transform.position, transform.position + direction, 1/speed);
-                fishAnimator.enabled = true;
-                fishAnimator.Play(fishStates[currentInput]);
-                trailParticles.transform.rotation = particleRotations[currentInput];
-                trailParticles.Play();
-                bumped = false;
-            } else {
-                direction = directions[currentInput];
-                nextTile = movementManager.GetNextTile(transform.position, direction);
+
+            if(nextTile == -1)
+                Teleport(direction);
+            else {   
                 if(movementManager.isWalkable(nextTile)) {
+                    currentInput = lastInput;
                     tweener.AddTween(transform, transform.position, transform.position + direction, 1/speed);
                     fishAnimator.enabled = true;
                     fishAnimator.Play(fishStates[currentInput]);
@@ -86,15 +79,54 @@ public class PacStudentController : MonoBehaviour
                     trailParticles.Play();
                     bumped = false;
                 } else {
-                    fishAnimator.enabled = false;
-                    trailParticles.Stop();
-                    if(!bumped) {
-                        bumpParticles.Play();
-                        bumped = true;
+                    direction = directions[currentInput];
+                    nextTile = movementManager.GetNextTile(transform.position, direction);
+                    if(movementManager.isWalkable(nextTile)) {
+                        tweener.AddTween(transform, transform.position, transform.position + direction, 1/speed);
+                        fishAnimator.enabled = true;
+                        fishAnimator.Play(fishStates[currentInput]);
+                        trailParticles.transform.rotation = particleRotations[currentInput];
+                        trailParticles.Play();
+                        bumped = false;
+                    } else {
+                        fishAnimator.enabled = false;
+                        trailParticles.Stop();
+                        if(!bumped) {
+                            bumpParticles.Play();
+                            bumped = true;
+                            movementManager.gameManager.audioManager.PlayCollisionSound();
+                        }
                     }
                 }
             }
         }
     }
 
+    void Teleport(Vector3 direction) {
+        float newX = Mathf.Abs(transform.position.x - movementManager.gameManager.levelGenerator.width + 1);
+        transform.position = new Vector3(newX, transform.position.y, 0.0f);
+    }
+
+    void Eat(GameObject pellet) {
+        Destroy(pellet);
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        string tag = other.gameObject.tag;
+        if(tag == "Pellet") {
+            Eat(other.gameObject);
+            AddScore(10);
+        } else if(tag == "Cherry") {
+            movementManager.cherryController.RemoveCherry(other.transform);
+            Eat(other.gameObject);
+            AddScore(100);
+        } else if(tag == "PowerPellet") {
+            Eat(other.gameObject);
+            movementManager.ghostController.Scared();
+        }
+    }
+
+    void AddScore(int x) {
+        movementManager.gameManager.AddScore(x);
+    }
 }
