@@ -31,6 +31,7 @@ public class PacStudentController : MonoBehaviour
         Quaternion.Euler(0.0f,0.0f,170.0f)
     };
     private Animator fishAnimator;
+    private Vector3 spawnPosition = new Vector3(1,-1,0);
     // Start is called before the first frame update
     public void Initialize(MovementManager mm) {
         movementManager = mm;
@@ -48,18 +49,27 @@ public class PacStudentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Debug.Log("current:" + currentInput);
-        // Debug.Log("last:" + lastInput);
-        if(Input.GetKeyDown(KeyCode.W))
-            lastInput = 0;
-        if(Input.GetKeyDown(KeyCode.A))
-            lastInput = 1;
-        if(Input.GetKeyDown(KeyCode.S))
-            lastInput = 2;
-        if(Input.GetKeyDown(KeyCode.D))
-            lastInput = 3;
-
-        Move();
+        if(movementManager.gameManager.isStarted) {
+            if(Input.GetKeyDown(KeyCode.W)) {
+                lastInput = 0;
+                movementManager.gameManager.Play();
+            }
+            if(Input.GetKeyDown(KeyCode.A)) {
+                lastInput = 1;
+                movementManager.gameManager.Play();
+            }
+            if(Input.GetKeyDown(KeyCode.S)) {
+                lastInput = 2;
+                movementManager.gameManager.Play();
+            }
+            if(Input.GetKeyDown(KeyCode.D)) {
+                lastInput = 3;
+                movementManager.gameManager.Play();
+            }
+            
+            if(!movementManager.gameManager.isPaused)
+                Move();
+        }
     }
 
     void Move() {
@@ -123,10 +133,41 @@ public class PacStudentController : MonoBehaviour
         } else if(tag == "PowerPellet") {
             Eat(other.gameObject);
             movementManager.ghostController.Scared();
+        } else if(tag == "Ghost") {
+            if(movementManager.ghostController.scared) {
+                movementManager.ghostController.Die(other.gameObject);
+                AddScore(300);
+            } else {
+                Die();
+            }
         }
     }
 
     void AddScore(int x) {
         movementManager.gameManager.AddScore(x);
+    }
+    
+    void Die() {
+        movementManager.gameManager.Pause();
+        tweener.RemoveTween(transform);
+        fishAnimator.Play("FishDead");
+        movementManager.gameManager.uIManager.LoseLife();
+        if(movementManager.gameManager.lifes > 0) {
+            Invoke("MoveToStart", 1.0f);
+        } else {
+            GameOver();
+        }
+    }
+
+    public void MoveToStart() {
+        fishAnimator.Play("FishRight");
+        trailParticles.Stop();
+        //fishAnimator.enabled = false;
+        lastInput = -1;
+        transform.position = spawnPosition;
+    }
+
+    void GameOver() {
+
     }
 }

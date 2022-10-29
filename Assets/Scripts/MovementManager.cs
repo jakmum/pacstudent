@@ -6,7 +6,7 @@ public class MovementManager : MonoBehaviour
 {
     public GameManager gameManager;
     [SerializeField]
-    private PacStudentController pacStudentController;
+    public PacStudentController pacStudentController;
     [SerializeField]
     public CherryController cherryController;
     [SerializeField]

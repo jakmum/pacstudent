@@ -15,13 +15,20 @@ public class CherryController : MonoBehaviour
     void Start()
     {
         tweener = GetComponent<Tweener>();
-        InvokeRepeating("SpawnCherry2", delay, delay);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void StartCherrySpawn() {
+        InvokeRepeating("SpawnCherry2", delay, delay);
+    }
+
+    public void StopCherrySpawn() {
+        CancelInvoke();
     }
 
     IEnumerator SpawnCherry() {

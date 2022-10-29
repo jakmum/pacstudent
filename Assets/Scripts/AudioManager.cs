@@ -27,25 +27,27 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     public void Initialize(GameManager gm) {
         gameManager = gm;
+        playingMusic = startMusic;
     }
     void Start()
     {
-        playingMusic = startMusic;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > startMusic.clip.length && start) {
-            playingMusic.Stop();
-            normalMusic.Play();
-            playingMusic = normalMusic;
-            start = false;
-        }
+        
     }
 
     public void PlayCollisionSound() {
         collideClip.Play();
+    }
+
+    public void PlayStartMusic() {
+        playingMusic.Stop();
+        startMusic.Play();
+        playingMusic = startMusic;
     }
 
     public void PlayScaredMusic() {
@@ -58,5 +60,10 @@ public class AudioManager : MonoBehaviour
         playingMusic.Stop();
         normalMusic.Play();
         playingMusic = normalMusic;
+    }
+    public void PlayDeadMusic() {
+        playingMusic.Stop();
+        deadMusic.Play();
+        playingMusic = deadMusic;
     }
 }

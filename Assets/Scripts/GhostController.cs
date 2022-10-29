@@ -7,9 +7,11 @@ public class GhostController : MonoBehaviour
     MovementManager movementManager;
     [SerializeField]
     List<GameObject> ghosts;
-    bool scared = false;
+    public bool scared = false;
     bool recovering = false;
+    bool dead = false;
     float scaredTimer;
+    float deadTimer;
 
     public void Initialize(MovementManager mm) {
         movementManager = mm;
@@ -34,10 +36,19 @@ public class GhostController : MonoBehaviour
                 Normal();
             }
         }
+        if(dead) {
+            if(deadTimer > 0) {
+                deadTimer -= Time.deltaTime;
+            } else {
+                Normal();
+            }
+        }
     }
 
     public void Normal() {
         scared = false;
+        recovering = false;
+        dead = false;
         foreach(GameObject ghost in ghosts) {
             Animator animator = ghost.GetComponent<Animator>();
             animator.Play("GhostAnimator_Left");
@@ -61,5 +72,13 @@ public class GhostController : MonoBehaviour
             Animator animator = ghost.GetComponent<Animator>();
             animator.Play("GhostAnimator_Recovering");
         }
+    }
+
+    public void Die(GameObject ghost) {
+        dead = true;
+        deadTimer = 5.0f;
+        Animator animator = ghost.GetComponent<Animator>();
+        animator.Play("GhostAnimator_Dead");
+        movementManager.gameManager.audioManager.PlayDeadMusic();
     }
 }
