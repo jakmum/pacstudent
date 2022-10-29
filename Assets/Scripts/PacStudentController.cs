@@ -30,7 +30,7 @@ public class PacStudentController : MonoBehaviour
         Quaternion.Euler(0.0f,0.0f,80.0f),
         Quaternion.Euler(0.0f,0.0f,170.0f)
     };
-    private Animator fishAnimator;
+    public Animator fishAnimator;
     private Vector3 spawnPosition = new Vector3(1,-1,0);
     // Start is called before the first frame update
     public void Initialize(MovementManager mm) {
@@ -52,19 +52,23 @@ public class PacStudentController : MonoBehaviour
         if(movementManager.gameManager.isStarted) {
             if(Input.GetKeyDown(KeyCode.W)) {
                 lastInput = 0;
-                movementManager.gameManager.Play();
+                if(movementManager.gameManager.isPaused)
+                    movementManager.gameManager.Play();
             }
             if(Input.GetKeyDown(KeyCode.A)) {
                 lastInput = 1;
-                movementManager.gameManager.Play();
+                if(movementManager.gameManager.isPaused)
+                    movementManager.gameManager.Play();
             }
             if(Input.GetKeyDown(KeyCode.S)) {
                 lastInput = 2;
-                movementManager.gameManager.Play();
+                if(movementManager.gameManager.isPaused)
+                    movementManager.gameManager.Play();
             }
             if(Input.GetKeyDown(KeyCode.D)) {
                 lastInput = 3;
-                movementManager.gameManager.Play();
+                if(movementManager.gameManager.isPaused)
+                    movementManager.gameManager.Play();
             }
             
             if(!movementManager.gameManager.isPaused)
@@ -88,6 +92,7 @@ public class PacStudentController : MonoBehaviour
                     trailParticles.transform.rotation = particleRotations[currentInput];
                     trailParticles.Play();
                     bumped = false;
+                    movementManager.gameManager.audioManager.PlayMoveSound();
                 } else {
                     direction = directions[currentInput];
                     nextTile = movementManager.GetNextTile(transform.position, direction);
@@ -98,6 +103,7 @@ public class PacStudentController : MonoBehaviour
                         trailParticles.transform.rotation = particleRotations[currentInput];
                         trailParticles.Play();
                         bumped = false;
+                        movementManager.gameManager.audioManager.PlayMoveSound();
                     } else {
                         fishAnimator.enabled = false;
                         trailParticles.Stop();
@@ -124,6 +130,7 @@ public class PacStudentController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other) {
         string tag = other.gameObject.tag;
         if(tag == "Pellet") {
+            movementManager.gameManager.audioManager.PlayEatSound();
             Eat(other.gameObject);
             AddScore(10);
         } else if(tag == "Cherry") {
@@ -151,23 +158,19 @@ public class PacStudentController : MonoBehaviour
         movementManager.gameManager.Pause();
         tweener.RemoveTween(transform);
         fishAnimator.Play("FishDead");
+        movementManager.gameManager.audioManager.PlayDieSound();
         movementManager.gameManager.uIManager.LoseLife();
         if(movementManager.gameManager.lifes > 0) {
             Invoke("MoveToStart", 1.0f);
         } else {
-            GameOver();
+            movementManager.gameManager.GameOver();
         }
     }
 
     public void MoveToStart() {
         fishAnimator.Play("FishRight");
         trailParticles.Stop();
-        //fishAnimator.enabled = false;
         lastInput = -1;
         transform.position = spawnPosition;
-    }
-
-    void GameOver() {
-
     }
 }

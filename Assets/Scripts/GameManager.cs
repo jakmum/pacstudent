@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,11 +42,13 @@ public class GameManager : MonoBehaviour
         audioManager.PlayStartMusic();
         yield return StartCoroutine(uIManager.CountDown(3));
         audioManager.PlayNormalMusic();
+        uIManager.StartTimer();
         Play();
     }
 
     public void AddScore(int x) {
         score += x;
+        uIManager.SetScore(score);
     }
 
     public void Pause() {
@@ -57,5 +60,36 @@ public class GameManager : MonoBehaviour
         isStarted = true;
         isPaused = false;
         movementManager.cherryController.StartCherrySpawn();
+    }
+
+    public void GameOver() {
+        Pause();
+        movementManager.pacStudentController.fishAnimator.enabled = false;
+        SaveHighScore();
+        uIManager.ShowGameOver();
+        Invoke("ShowStartScene", 3);
+    }
+
+    public void SaveHighScore() {
+        int currentHighScore = PlayerPrefs.GetInt("highscore", 0);
+        float currentTime = PlayerPrefs.GetFloat("highscoreTime", 0.0f);
+
+        if(score > currentHighScore) {
+            PlayerPrefs.SetInt("highscore", score);
+            PlayerPrefs.SetFloat("highscoreTime", uIManager.GetTimePlayed());
+        } else if(score == currentHighScore) {
+            if(currentTime > uIManager.GetTimePlayed()) {
+                PlayerPrefs.SetInt("highscore", score);
+                PlayerPrefs.SetFloat("highscoreTime", uIManager.GetTimePlayed());
+            }
+        }
+    }
+
+    public void ShowStartScene() {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ShowLevel1() {
+        SceneManager.LoadScene(1);
     }
 }

@@ -23,7 +23,6 @@ public class AudioManager : MonoBehaviour
     private AudioSource moveClip;
     private AudioSource playingMusic;
 
-    bool start = true;
     // Start is called before the first frame update
     public void Initialize(GameManager gm) {
         gameManager = gm;
@@ -31,7 +30,7 @@ public class AudioManager : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -42,6 +41,18 @@ public class AudioManager : MonoBehaviour
 
     public void PlayCollisionSound() {
         collideClip.Play();
+    }
+
+    public void PlayDieSound() {
+        dieClip.Play();
+    }
+
+    public void PlayEatSound() {
+        eatClip.Play();
+    }
+
+    public void PlayMoveSound() {
+        moveClip.Play();
     }
 
     public void PlayStartMusic() {

@@ -16,11 +16,15 @@ public class UIManager : MonoBehaviour
     GameObject ghostTimer;
     [SerializeField]
     GameObject countDown;
+    [SerializeField]
+    GameObject gameOver;
+    float startTime = -1.0f;
     // Start is called before the first frame update
     
     public void Initialize(GameManager gm) {
         gameManager = gm;
     }
+
     void Start()
     {
         
@@ -29,7 +33,9 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(startTime != -1.0f) {
+            UpdateTimer();
+        }
     }
 
     public IEnumerator CountDown(int t) {
@@ -38,7 +44,6 @@ public class UIManager : MonoBehaviour
         float expired = Time.time + t + 1;
         while(Time.time < expired) {
             float timeLeft = expired - Time.time;
-            Debug.Log(timeLeft);
             if(timeLeft > 1.0f) {
                 countDown.GetComponent<TextMeshProUGUI>().SetText(Mathf.CeilToInt(timeLeft-1).ToString());
             } else {
@@ -53,6 +58,26 @@ public class UIManager : MonoBehaviour
         SetScore(0);
         DisableGhostTimer();
         ResetLifes();
+        gameOver.SetActive(false);
+    }
+
+    public void StartTimer() {
+        startTime = Time.time;
+    }
+
+    public void UpdateTimer() {
+        float timePast = GetTimePlayed();
+        string text = FormatTimeToString(timePast);
+        timer.GetComponent<TextMeshProUGUI>().SetText(text);
+    }
+
+    public string FormatTimeToString(float time) {
+        int mins = Mathf.FloorToInt(time / 60.0f);
+        int seconds = Mathf.FloorToInt(time - mins * 60);
+        int ms = (int)((time - seconds - mins * 60) * 1000);
+        if(ms >= 100)
+            ms = ms/10;
+        return string.Format("{0:D2}:{1:D2}:{2:D2}", mins, seconds, ms);
     }
 
     public void SetScore(int x) {
@@ -83,5 +108,14 @@ public class UIManager : MonoBehaviour
         foreach(GameObject lifeIndicator in lifeIndicators) {
             lifeIndicator.SetActive(true);
         }
+    }
+
+    public float GetTimePlayed() {
+        return Time.time - startTime;
+    }
+
+    public void ShowGameOver() {
+        gameOver.SetActive(true);
+        startTime = -1.0f;
     }
 }
