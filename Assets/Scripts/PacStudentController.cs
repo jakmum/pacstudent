@@ -6,7 +6,9 @@ public class PacStudentController : MonoBehaviour
 {
     MovementManager movementManager;
     private Tweener tweener;
-    private new ParticleSystem particleSystem;
+    private ParticleSystem trailParticles;
+    private ParticleSystem bumpParticles;
+    private bool bumped = false;
     private float speed = 2;
     private int lastInput = -1;
     private int currentInput;
@@ -35,8 +37,10 @@ public class PacStudentController : MonoBehaviour
         movementManager = GameObject.FindGameObjectWithTag("MovementManager").GetComponent<MovementManager>();
         tweener = GetComponent<Tweener>();
         fishAnimator = GetComponent<Animator>();
-        particleSystem = gameObject.GetComponentInChildren<ParticleSystem>();
-        particleSystem.Stop();
+        trailParticles = GameObject.Find("TrailParticles").GetComponent<ParticleSystem>();
+        bumpParticles = GameObject.Find("BumpParticles").GetComponent<ParticleSystem>();
+        trailParticles.Stop();
+        bumpParticles.Stop();
     }
 
     // Update is called once per frame
@@ -66,8 +70,9 @@ public class PacStudentController : MonoBehaviour
                 tweener.AddTween(transform, transform.position, transform.position + direction, 1/speed);
                 fishAnimator.enabled = true;
                 fishAnimator.Play(fishStates[currentInput]);
-                particleSystem.transform.rotation = particleRotations[currentInput];
-                particleSystem.Play();
+                trailParticles.transform.rotation = particleRotations[currentInput];
+                trailParticles.Play();
+                bumped = false;
             } else {
                 direction = directions[currentInput];
                 nextTile = movementManager.GetNextTile(transform.position, direction);
@@ -75,11 +80,16 @@ public class PacStudentController : MonoBehaviour
                     tweener.AddTween(transform, transform.position, transform.position + direction, 1/speed);
                     fishAnimator.enabled = true;
                     fishAnimator.Play(fishStates[currentInput]);
-                    particleSystem.transform.rotation = particleRotations[currentInput];
-                    particleSystem.Play();
+                    trailParticles.transform.rotation = particleRotations[currentInput];
+                    trailParticles.Play();
+                    bumped = false;
                 } else {
                     fishAnimator.enabled = false;
-                    particleSystem.Stop();
+                    trailParticles.Stop();
+                    if(!bumped) {
+                        bumpParticles.Play();
+                        bumped = true;
+                    }
                 }
             }
         }
