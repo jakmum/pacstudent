@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(levelGenerator.pelletCounter <= 0)
+            Win();
     }
 
     IEnumerator StartGame() {
@@ -66,6 +67,14 @@ public class GameManager : MonoBehaviour
         movementManager.pacStudentController.fishAnimator.enabled = false;
         SaveHighScore();
         uIManager.ShowGameOver();
+        Invoke("ShowStartScene", 3);
+    }
+
+    public void Win() {
+        Pause();
+        movementManager.pacStudentController.fishAnimator.enabled = false;
+        SaveHighScore();
+        uIManager.ShowWin();
         Invoke("ShowStartScene", 3);
     }
 

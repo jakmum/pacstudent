@@ -26,12 +26,15 @@ public class LevelGenerator : MonoBehaviour
     int[,] completeLvlMap;
     public int width;
     public int height;
+    public int pelletCounter;
     private GameObject tilesTopLeft;
     private GameObject tilesTopRight;
     private GameObject tilesBottomLeft;
     private GameObject tilesBottomRight;
     [SerializeField]
     private Sprite[] sprites;
+    [SerializeField]
+    private RuntimeAnimatorController powerPelletAnimController;
     private bool tOpen = false;
 
     // Start is called before the first frame update
@@ -115,8 +118,10 @@ public class LevelGenerator : MonoBehaviour
             cl.isTrigger = true;
             cl.radius = 0.2f;
             newTile.tag = "Pellet";
+            pelletCounter++;
         }
         if(tileNumber == 6) {
+            newTile.AddComponent<Animator>().runtimeAnimatorController = powerPelletAnimController;
             CircleCollider2D cl = newTile.AddComponent<CircleCollider2D>();
             cl.isTrigger = true;
             cl.radius = 0.4f;

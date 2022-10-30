@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     GameObject countDown;
     [SerializeField]
     GameObject gameOver;
+    [SerializeField]
+    GameObject gameWon;
     float startTime = -1.0f;
     // Start is called before the first frame update
     
@@ -59,6 +61,7 @@ public class UIManager : MonoBehaviour
         DisableGhostTimer();
         ResetLifes();
         gameOver.SetActive(false);
+        gameWon.SetActive(false);
     }
 
     public void StartTimer() {
@@ -116,6 +119,11 @@ public class UIManager : MonoBehaviour
 
     public void ShowGameOver() {
         gameOver.SetActive(true);
+        startTime = -1.0f;
+    }
+
+    public void ShowWin() {
+        gameWon.SetActive(true);
         startTime = -1.0f;
     }
 }

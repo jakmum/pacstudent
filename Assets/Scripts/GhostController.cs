@@ -9,6 +9,14 @@ public class GhostController : MonoBehaviour
     Tweener tweener;
     [SerializeField]
     List<GameObject> ghosts;
+    [SerializeField]
+    Animator[] ghostAnimators;
+    string[] ghostAnimStates = {
+        "GhostAnimator_Left",
+        "GhostAnimator_Up",
+        "GhostAnimator_Right",
+        "GhostAnimator_Down",
+    };
     GhostState[] ghostStates = {   
         GhostState.Normal,
         GhostState.Normal,
@@ -17,6 +25,21 @@ public class GhostController : MonoBehaviour
     };
     int[] ghostOrigin = {-1,-1,-1,-1};
     Vector3 spawnPosition = new Vector3(14.0f, -14.0f, 0.0f);
+    Vector3[] ghost4Targets = {
+        new Vector3(1,-1,0),
+        new Vector3(15,-1,0),
+        new Vector3(26,-1,0),
+        new Vector3(26,-8,0),
+        new Vector3(21,-20,0),
+        new Vector3(26,-20,0),
+        new Vector3(26,-27,0),
+        new Vector3(12,-27,0),
+        new Vector3(1,-27,0),
+        new Vector3(1,-20,0),
+        new Vector3(6,-8,0),
+        new Vector3(1,-8,0),
+    };
+    int ghost4Target = 0;
     float[] deadTimer = {0,0,0,0};
     public GhostState globalState = GhostState.Normal;
     float scaredTimer;
@@ -150,26 +173,29 @@ public class GhostController : MonoBehaviour
         }
     }
 
-    Vector3 GetNextPosition(Vector3 pos, int neighborID) {
-        if(neighborID == 0) {
+    Vector3 GetNextPosition(Vector3 pos, int neighborIndex) {
+        if(neighborIndex == 0) {
             return pos + Vector3.left;
-        } else if(neighborID == 1) {
+        } else if(neighborIndex == 1) {
             return pos + Vector3.up;
-        } else if(neighborID == 2) {
+        } else if(neighborIndex == 2) {
             return pos + Vector3.right;
         } else {
             return pos + Vector3.down;
         }
     }
 
-    bool IsWalkable(int tileNumber, Vector3 pos) {
+    bool IsWalkable(int tileNumber, Vector3 nextPos) {
         return tileNumber != -1 
             && movementManager.IsWalkable(tileNumber)
-            && !InStartArea(pos);
+            && !InStartArea(nextPos);
     }
 
     void MoveGhost(int index, Vector3 target, int origin) {
         ghostOrigin[index] = origin;
+        int direction = (origin+2)%4;
+        if(ghostStates[index] == GhostState.Normal)
+            ghostAnimators[index].Play(ghostAnimStates[direction]);
         tweener.AddTween(ghosts[index].transform, ghosts[index].transform.position, target, 1/speed);
     }
 
@@ -319,14 +345,90 @@ public class GhostController : MonoBehaviour
     }
 
     bool IsAtOuterWall(Vector3 pos) {
-        return false;
+        int[] neighbors = movementManager.gameManager.levelGenerator.GetNeighbors((int)pos.x, -(int)pos.y);
+        
+        // Either an outer wall is adjacent
+        foreach(int tileNumber in neighbors) {
+            if(tileNumber == 1 || tileNumber == 2 || tileNumber == 7)
+                return true;
+        }
+
+        // or ghost is at these coordinates
+        return (pos.x > 11 && pos.x < 16 && (pos.y > -6 || pos.y < -22));
     }
 
     void GhostFourMovement(int index) {
         if(!tweener.TweenExists(ghosts[index].transform)) {
-            if(!IsAtOuterWall(ghosts[index].transform.position)) {
-
+            //0:left; 1:top; 2:right; 3:bottom
+            int[] neighbors = movementManager.gameManager.levelGenerator.GetNeighbors((int)ghosts[index].transform.position.x, -(int)ghosts[index].transform.position.y);
+            int previousTile = ghostOrigin[index];
+            Vector3 nextPosition;
+            
+            // Check if one of neighboring Tiles is closer at 
+            // target position and walk there if so
+            // Start at random index and loop through all neigboring tiles
+            int start = Random.Range(0,4);
+            for(int i = 0; i < 4; i++) {
+                int neighborIndex = (i+start)%4;
+                if(neighborIndex != previousTile) {
+                    int neighborTile = neighbors[neighborIndex];
+                    nextPosition = GetNextPosition(ghosts[index].transform.position, neighborIndex);
+                    if(IsWalkable(neighborTile, nextPosition)) {
+                        Vector3 targetPosition = ghost4Targets[ghost4Target];
+                        float distance = Vector3.Distance(ghosts[index].transform.position, targetPosition);
+                        if(distance >= Vector3.Distance(nextPosition, targetPosition)) {
+                            if(nextPosition == targetPosition)
+                                ghost4Target = (ghost4Target+1)%ghost4Targets.Length;
+                            MoveGhost(index, nextPosition, (neighborIndex+2)%4);
+                            return;
+                        }
+                    }
+                }
             }
+
+            // Check if ghost can walk anywhere else without walking back
+            // else walk back
+            for(int i = 0; i < 4; i++) {
+                int neighborIndex = (i+previousTile+1)%4;
+                int neighborTile = neighbors[neighborIndex];
+                nextPosition = GetNextPosition(ghosts[index].transform.position, neighborIndex);
+                if(IsWalkable(neighborTile, nextPosition)) {
+                    MoveGhost(index, nextPosition, (neighborIndex+2)%4);
+                    return;
+                }
+            }
+
+
+            
+            /*
+            //0:left; 1:top; 2:right; 3:bottom
+            int[] neighbors = movementManager.gameManager.levelGenerator.GetNeighbors((int)ghosts[index].transform.position.x, -(int)ghosts[index].transform.position.y);
+            int previousTile = ghostOrigin[index];
+            Vector3 nextPosition;
+            int[] order;
+
+            if(!IsAtOuterWall(ghosts[index].transform.position)) {
+                Debug.Log("not at outer wall");
+                // Move to the right outer wall
+                order = new int[] {2,1,3,0};
+            } else {
+                if(previousTile == 0)
+                    order = new int[] {1,2,3,0};
+                else if(previousTile == 1)
+                    order = new int[] {2,3,0,1};
+                else if(previousTile == 2)
+                    order = new int[] {3,0,1,2};
+                else 
+                    order = new int[] {0,1,2,3};
+            }
+
+            foreach(int i in order) {
+                if(IsWalkable(neighbors[i], GetNextPosition(ghosts[index].transform.position, i))) {
+                    nextPosition = GetNextPosition(ghosts[index].transform.position, i);
+                    MoveGhost(index, nextPosition, (i+2)%4);
+                    return;
+                }
+            }*/
         }
     }
 

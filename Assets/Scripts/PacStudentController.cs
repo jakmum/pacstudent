@@ -129,11 +129,16 @@ public class PacStudentController : MonoBehaviour
         Destroy(pellet);
     }
 
+    void CollectPellet() {
+        movementManager.gameManager.levelGenerator.pelletCounter--;
+    }
+
     void OnTriggerEnter2D(Collider2D other) {
         string tag = other.gameObject.tag;
         if(tag == "Pellet") {
             movementManager.gameManager.audioManager.PlayEatSound();
             Eat(other.gameObject);
+            CollectPellet();
             AddScore(10);
         } else if(tag == "Cherry") {
             movementManager.cherryController.RemoveCherry(other.transform);
