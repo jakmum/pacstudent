@@ -36,45 +36,71 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        PlayMusic();
+    }
+
+    void PlayMusic() {
+        if(!gameManager.isStarted) {
+            PlayStartMusic();
+        } else {
+            if(gameManager.movementManager.ghostController.GhostIsDead()) {
+                PlayDeadMusic();
+            } else if(gameManager.movementManager.ghostController.globalState == GhostController.GhostState.Scared || gameManager.movementManager.ghostController.globalState == GhostController.GhostState.Recovering) {
+                PlayScaredMusic();
+            } else {
+                PlayNormalMusic();
+            }
+        }
     }
 
     public void PlayCollisionSound() {
-        collideClip.Play();
+        if(!collideClip.isPlaying)
+            collideClip.Play();
     }
 
     public void PlayDieSound() {
-        dieClip.Play();
+        if(!dieClip.isPlaying)
+            dieClip.Play();
     }
 
     public void PlayEatSound() {
-        eatClip.Play();
+        if(!eatClip.isPlaying)
+            eatClip.Play();
     }
 
     public void PlayMoveSound() {
-        moveClip.Play();
+        if(!moveClip.isPlaying)
+            moveClip.Play();
     }
 
     public void PlayStartMusic() {
-        playingMusic.Stop();
-        startMusic.Play();
-        playingMusic = startMusic;
+        if(!startMusic.isPlaying) {
+            playingMusic.Stop();
+            startMusic.Play();
+            playingMusic = startMusic;
+        }
     }
 
     public void PlayScaredMusic() {
-        playingMusic.Stop();
-        scaredMusic.Play();
-        playingMusic = scaredMusic;
+        if(!scaredMusic.isPlaying) {
+            playingMusic.Stop();
+            scaredMusic.Play();
+            playingMusic = scaredMusic;
+        }
     }
 
     public void PlayNormalMusic() {
-        playingMusic.Stop();
-        normalMusic.Play();
-        playingMusic = normalMusic;
+        if(!normalMusic.isPlaying) {
+            playingMusic.Stop();
+            normalMusic.Play();
+            playingMusic = normalMusic;
+        }
     }
     public void PlayDeadMusic() {
-        playingMusic.Stop();
-        deadMusic.Play();
-        playingMusic = deadMusic;
+        if(!deadMusic.isPlaying) {
+            playingMusic.Stop();
+            deadMusic.Play();
+            playingMusic = deadMusic;
+        }
     }
 }
