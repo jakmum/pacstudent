@@ -86,7 +86,7 @@ public class PacStudentController : MonoBehaviour
             if(nextTile == -1)
                 Teleport(direction);
             else {   
-                if(movementManager.isWalkable(nextTile)) {
+                if(movementManager.IsWalkable(nextTile)) {
                     currentInput = lastInput;
                     tweener.AddTween(transform, transform.position, transform.position + direction, 1/speed);
                     fishAnimator.enabled = true;
@@ -98,7 +98,7 @@ public class PacStudentController : MonoBehaviour
                 } else {
                     direction = directions[currentInput];
                     nextTile = movementManager.GetNextTile(transform.position, direction);
-                    if(movementManager.isWalkable(nextTile)) {
+                    if(movementManager.IsWalkable(nextTile)) {
                         tweener.AddTween(transform, transform.position, transform.position + direction, 1/speed);
                         fishAnimator.enabled = true;
                         fishAnimator.Play(fishStates[currentInput]);

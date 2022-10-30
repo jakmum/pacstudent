@@ -44,7 +44,7 @@ public class MovementManager : MonoBehaviour
             return neighbors[1];
     }
 
-    public bool isWalkable(int tileNumber) {
+    public bool IsWalkable(int tileNumber) {
         if(tileNumber == 0 || tileNumber == 5 || tileNumber == 6 || tileNumber == -1)
             return true;
         return false;
