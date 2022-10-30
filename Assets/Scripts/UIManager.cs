@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class UIManager : MonoBehaviour
     GameObject gameOver;
     [SerializeField]
     GameObject gameWon;
+    [SerializeField]
+    Button exitButton;
     float startTime = -1.0f;
     // Start is called before the first frame update
     
@@ -29,7 +32,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        
+        exitButton.onClick.AddListener(gameManager.ShowStartScene);
     }
 
     // Update is called once per frame
