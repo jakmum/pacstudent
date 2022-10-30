@@ -36,20 +36,17 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayMusic();
+        if(gameManager.isStarted)
+            PlayMusic();
     }
 
     void PlayMusic() {
-        if(!gameManager.isStarted) {
-            PlayStartMusic();
+        if(gameManager.movementManager.ghostController.GhostIsDead()) {
+            PlayDeadMusic();
+        } else if(gameManager.movementManager.ghostController.globalState == GhostController.GhostState.Scared || gameManager.movementManager.ghostController.globalState == GhostController.GhostState.Recovering) {
+            PlayScaredMusic();
         } else {
-            if(gameManager.movementManager.ghostController.GhostIsDead()) {
-                PlayDeadMusic();
-            } else if(gameManager.movementManager.ghostController.globalState == GhostController.GhostState.Scared || gameManager.movementManager.ghostController.globalState == GhostController.GhostState.Recovering) {
-                PlayScaredMusic();
-            } else {
-                PlayNormalMusic();
-            }
+            PlayNormalMusic();
         }
     }
 

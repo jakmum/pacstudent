@@ -46,6 +46,7 @@ public class PacStudentController : MonoBehaviour
         deadParticles = GameObject.Find("DeadParticles").GetComponent<ParticleSystem>();
         trailParticles.Stop();
         bumpParticles.Stop();
+        deadParticles.Stop();
     }
 
     // Update is called once per frame
@@ -91,7 +92,7 @@ public class PacStudentController : MonoBehaviour
                     tweener.AddTween(transform, transform.position, transform.position + direction, 1/speed);
                     fishAnimator.enabled = true;
                     fishAnimator.Play(fishStates[currentInput]);
-                    trailParticles.transform.rotation = particleRotations[currentInput];
+                    //trailParticles.transform.rotation = particleRotations[currentInput];
                     trailParticles.Play();
                     bumped = false;
                     movementManager.gameManager.audioManager.PlayMoveSound();
@@ -102,7 +103,7 @@ public class PacStudentController : MonoBehaviour
                         tweener.AddTween(transform, transform.position, transform.position + direction, 1/speed);
                         fishAnimator.enabled = true;
                         fishAnimator.Play(fishStates[currentInput]);
-                        trailParticles.transform.rotation = particleRotations[currentInput];
+                        //trailParticles.transform.rotation = particleRotations[currentInput];
                         trailParticles.Play();
                         bumped = false;
                         movementManager.gameManager.audioManager.PlayMoveSound();

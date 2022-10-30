@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
         lifes = 3;
         uIManager.Reset();
         audioManager.PlayStartMusic();
+        // Wait two more seconds so start music has time to finish
+        yield return new WaitForSeconds(2);
         yield return StartCoroutine(uIManager.CountDown(3));
         audioManager.PlayNormalMusic();
         uIManager.StartTimer();
@@ -56,6 +58,11 @@ public class GameManager : MonoBehaviour
         movementManager.cherryController.StopCherrySpawn();
     }
 
+    public void Stop() {
+        Pause();
+        isStarted = false;
+    }
+
     public void Play() {
         isStarted = true;
         isPaused = false;
@@ -63,7 +70,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver() {
-        Pause();
+        Stop();
         movementManager.pacStudentController.fishAnimator.enabled = false;
         SaveHighScore();
         uIManager.ShowGameOver();
@@ -71,7 +78,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void Win() {
-        Pause();
+        Stop();
         movementManager.pacStudentController.fishAnimator.enabled = false;
         SaveHighScore();
         uIManager.ShowWin();
