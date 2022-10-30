@@ -88,8 +88,4 @@ public class GameManager : MonoBehaviour
     public void ShowStartScene() {
         SceneManager.LoadScene(0);
     }
-
-    public void ShowLevel1() {
-        SceneManager.LoadScene(1);
-    }
 }
