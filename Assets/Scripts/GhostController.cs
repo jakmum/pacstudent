@@ -138,6 +138,13 @@ public class GhostController : MonoBehaviour
     void Resurrect(int index) {
         deadTimer[index] = 0;
         ghostStates[index] = globalState;
+        Animator animator = ghosts[index].GetComponent<Animator>();
+        if(ghostStates[index] == GhostState.Recovering)
+            animator.Play("GhostAnimator_Recovering");
+        else if(ghostStates[index] == GhostState.Scared)
+            animator.Play("GhostAnimator_Scared");
+        else
+            animator.Play("GhostAnimator_Normal");
     }
 
     public bool GhostIsDead() {
