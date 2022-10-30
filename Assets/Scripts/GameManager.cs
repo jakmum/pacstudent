@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
     IEnumerator StartGame() {
         lifes = 3;
         uIManager.Reset();
-        movementManager.pacStudentController.MoveToStart();
         audioManager.PlayStartMusic();
         yield return StartCoroutine(uIManager.CountDown(3));
         audioManager.PlayNormalMusic();

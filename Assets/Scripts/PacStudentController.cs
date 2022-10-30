@@ -8,6 +8,7 @@ public class PacStudentController : MonoBehaviour
     private Tweener tweener;
     private ParticleSystem trailParticles;
     private ParticleSystem bumpParticles;
+    private ParticleSystem deadParticles;
     private bool bumped = false;
     private float speed = 2;
     private int lastInput = -1;
@@ -42,6 +43,7 @@ public class PacStudentController : MonoBehaviour
         fishAnimator = GetComponent<Animator>();
         trailParticles = GameObject.Find("TrailParticles").GetComponent<ParticleSystem>();
         bumpParticles = GameObject.Find("BumpParticles").GetComponent<ParticleSystem>();
+        deadParticles = GameObject.Find("DeadParticles").GetComponent<ParticleSystem>();
         trailParticles.Stop();
         bumpParticles.Stop();
     }
@@ -161,6 +163,8 @@ public class PacStudentController : MonoBehaviour
         movementManager.gameManager.audioManager.PlayDieSound();
         movementManager.gameManager.uIManager.LoseLife();
         if(movementManager.gameManager.lifes > 0) {
+            movementManager.gameManager.isStarted = false;
+            deadParticles.Play();
             Invoke("MoveToStart", 1.0f);
         } else {
             movementManager.gameManager.GameOver();
@@ -172,5 +176,6 @@ public class PacStudentController : MonoBehaviour
         trailParticles.Stop();
         lastInput = -1;
         transform.position = spawnPosition;
+        movementManager.gameManager.isStarted = true;
     }
 }
